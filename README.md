@@ -11,3 +11,8 @@ $ yarn start
 # Build the production ready code to the /dist folder
 $ yarn build
 ```
+
+## Music is too annoying?
+Right click on the tab -> Mute site
+
+<img src="README/mute-audio.png">
