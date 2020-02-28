@@ -1,15 +1,33 @@
+import { SCENES } from '../constants'
+
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
-    super({ key: 'PreloadScene' })
+    super({ key: SCENES.LOAD })
   }
 
   preload() {
+    this.load.audio('title-theme', 'assets/audio/title-theme.mp3')
+    this.load.audio('caves-theme', 'assets/audio/caves-theme.mp3')
+    this.load.image('title-bg', 'assets/img/start-screen.jpg')
     this.load.image('phaser-logo', 'assets/img/phaser-logo.png')
+
+    const loadingBar = this.add.graphics({
+      fillStyle: {
+        color: 0x000000
+      }
+    })
+
+    // Draws a progress bar in the middle of the screen while loading
+    this.load.on('progress', percent => {
+      const { height, width } = this.game.renderer
+      this.game.renderer
+      loadingBar.fillRect(0, height / 2, width * percent, 50)
+    })
   }
 
   create() {
-    this.scene.start('MainScene')
-
+    this.sound.pauseOnBlur = false
+    this.scene.start(SCENES.MAIN_MENU)
     /**
      * This is how you would dynamically import the mainScene class (with code splitting),
      * add the mainScene to the Scene Manager

@@ -1,6 +1,7 @@
 import 'phaser'
 import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
+import MenuScene from './scenes/menuScene'
 
 const DEFAULT_WIDTH = 1280
 const DEFAULT_HEIGHT = 720
@@ -15,13 +16,16 @@ const config: Phaser.Types.Core.GameConfig = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT
   },
-  scene: [PreloadScene, MainScene],
+  scene: [PreloadScene, MenuScene, MainScene],
   physics: {
     default: 'arcade',
     arcade: {
       debug: false,
       gravity: { y: 400 }
     }
+  },
+  render: {
+    pixelArt: true
   }
 }
 
