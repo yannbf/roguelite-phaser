@@ -1,16 +1,23 @@
-import { SCENES } from '../constants'
+import { SCENES, AUDIOS, IMAGES } from '../constants'
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
     super({ key: SCENES.LOAD })
   }
 
-  preload() {
-    this.load.audio('title-theme', 'assets/audio/title-theme.mp3')
-    this.load.audio('caves-theme', 'assets/audio/caves-theme.mp3')
-    this.load.image('title-bg', 'assets/img/start-screen.jpg')
-    this.load.image('phaser-logo', 'assets/img/phaser-logo.png')
+  loadAudio() {
+    this.load.setPath('assets/audio')
+    Object.values(AUDIOS).forEach(audio => this.load.audio(audio, audio))
+  }
 
+  loadImages() {
+    this.load.setPath('assets/img')
+    Object.values(IMAGES).forEach(image => this.load.image(image, image))
+  }
+
+  preload() {
+    this.loadAudio()
+    this.loadImages()
     const loadingBar = this.add.graphics({
       fillStyle: {
         color: 0x000000

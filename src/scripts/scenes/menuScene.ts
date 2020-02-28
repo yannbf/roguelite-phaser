@@ -1,4 +1,4 @@
-import { SCENES } from '../constants'
+import { SCENES, IMAGES, AUDIOS } from '../constants'
 
 export default class MenuScene extends Phaser.Scene {
   background: Phaser.GameObjects.Image
@@ -25,7 +25,7 @@ export default class MenuScene extends Phaser.Scene {
 
   setupBackground() {
     this.background = this.add
-      .sprite(0, 0, 'title-bg')
+      .sprite(0, 0, IMAGES.TITLE_BACKGROUND)
       .setOrigin(0)
       .setDepth(0)
     const scaleX = this.cameras.main.width / this.background.width
@@ -35,7 +35,7 @@ export default class MenuScene extends Phaser.Scene {
   }
 
   setupAudio() {
-    this.music = this.sound.add('title-theme', { volume: 0.05, loop: true })
+    this.music = this.sound.add(AUDIOS.TITLE_THEME, { volume: 0.05, loop: true })
     this.music.play()
   }
 
