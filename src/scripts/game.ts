@@ -1,4 +1,6 @@
 import 'phaser'
+import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js'
+
 import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
 import MenuScene from './scenes/menuScene'
@@ -25,6 +27,18 @@ const config: Phaser.Types.Core.GameConfig = {
   },
   render: {
     pixelArt: true
+  },
+  input: {
+    activePointers: 3
+  },
+  plugins: {
+    global: [
+      {
+        key: 'rexVirtualJoystick',
+        plugin: VirtualJoystickPlugin,
+        start: true
+      }
+    ]
   }
 }
 

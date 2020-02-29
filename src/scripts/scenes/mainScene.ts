@@ -1,15 +1,16 @@
 import FpsText from '../objects/fpsText'
 import { SCENES, AUDIOS } from '../constants'
 import CharacterSprite from '../objects/character'
+import BaseScene from './baseScene'
 
-type KeyboardObj = { [index: string]: Phaser.Input.Keyboard.Key }
-
-export default class MainScene extends Phaser.Scene {
+export default class MainScene extends BaseScene {
   PLAYER_SPEED = 128
   fpsText: Phaser.GameObjects.Text
   character: Phaser.GameObjects.Image
   player: CharacterSprite
   keyboard: Phaser.Types.Input.Keyboard.CursorKeys
+  movementJoystick: any
+  shootJoystick: any
 
   constructor() {
     super({ key: SCENES.MAIN })
@@ -69,25 +70,11 @@ export default class MainScene extends Phaser.Scene {
 
   update(time: number, delta: number) {
     this.fpsText.update()
-    if (this.keyboard.right?.isDown === true) {
-      this.player.walk('right')
-    }
-    if (this.keyboard.left?.isDown === true) {
-      this.player.walk('left')
-    }
-    if (this.keyboard.up?.isDown === true) {
-      this.player.walk('up')
-    }
-    if (this.keyboard.down?.isDown === true) {
-      this.player.walk('down')
-    }
 
-    if (this.keyboard.left?.isUp && this.keyboard.right?.isUp) {
-      this.player.setVelocityX(0)
-    }
-
-    if (this.keyboard.up?.isUp && this.keyboard.down?.isUp) {
-      this.player.setVelocityY(0)
+    if (this.isMobile) {
+      this.handleMobileInput()
+    } else {
+      this.handleDesktopInput()
     }
   }
 
@@ -107,12 +94,82 @@ export default class MainScene extends Phaser.Scene {
       .setOrigin(1, 0)
   }
 
-  setupInput() {
-    this.keyboard = this.input.keyboard.createCursorKeys()
-  }
-
   setupAudio() {
     this.sound.play(AUDIOS.CAVES_THEME, { volume: 0.05, loop: true })
     this.sound.pauseOnBlur = false
+  }
+
+  setupInput() {
+    if (this.isMobile) {
+      // Create movement joystick
+      const movementJoystickOpts = {
+        x: 125,
+        y: this.cameras.main.height - 125
+      }
+      this.movementJoystick = this.createJoystick(movementJoystickOpts)
+
+      // Create shooting joystick
+      const shootJoystickOpts = {
+        x: this.cameras.main.width - 125,
+        y: this.cameras.main.height - 125
+      }
+      this.shootJoystick = this.createJoystick(shootJoystickOpts)
+    } else {
+      this.keyboard = this.input.keyboard.createCursorKeys()
+    }
+  }
+
+  handleMobileInput() {
+    if (this.movementJoystick.force) {
+      // Calculate speed based on joystick force
+      const speedMultiplier =
+        this.movementJoystick.force < this.movementJoystick.radius
+          ? this.movementJoystick.force / this.movementJoystick.radius
+          : 1
+      const speed = this.player.SPEED * speedMultiplier
+
+      if (this.movementJoystick.right) {
+        this.player.walk('right')
+      }
+      if (this.movementJoystick.left) {
+        this.player.walk('left')
+      }
+      if (this.movementJoystick.up) {
+        this.player.walk('up')
+      }
+      if (this.movementJoystick.down) {
+        this.player.walk('down')
+      }
+      // Move player according to movement joystick
+      this.player.setVelocityX(speed * Math.cos((Math.PI * this.movementJoystick.angle) / 180))
+      this.player.setVelocityY(speed * Math.sin((Math.PI * this.movementJoystick.angle) / 180))
+    } else {
+      // Stop moving
+      this.player.setVelocityX(0)
+      this.player.setVelocityY(0)
+    }
+  }
+
+  handleDesktopInput() {
+    if (this.keyboard.right?.isDown === true) {
+      this.player.walk('right')
+    }
+    if (this.keyboard.left?.isDown === true) {
+      this.player.walk('left')
+    }
+    if (this.keyboard.up?.isDown === true) {
+      this.player.walk('up')
+    }
+    if (this.keyboard.down?.isDown === true) {
+      this.player.walk('down')
+    }
+
+    // Stop moving
+    if (this.keyboard.left?.isUp && this.keyboard.right?.isUp) {
+      this.player.setVelocityX(0)
+    }
+    if (this.keyboard.up?.isUp && this.keyboard.down?.isUp) {
+      this.player.setVelocityY(0)
+    }
   }
 }

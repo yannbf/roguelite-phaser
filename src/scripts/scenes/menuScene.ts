@@ -21,6 +21,7 @@ export default class MenuScene extends Phaser.Scene {
       .setOrigin(1, 0)
 
     this.input.keyboard.once('keydown_SPACE', () => this.startGame())
+    this.input.once('pointerdown', () => this.startGame())
   }
 
   setupBackground() {
@@ -55,7 +56,7 @@ export default class MenuScene extends Phaser.Scene {
       ease: 'Sine.easeInOut',
       callbackScope: this,
       onComplete: () => {
-        this.music.stop()
+        // this.music.stop()
         this.scene.start(SCENES.MAIN)
       }
     })
