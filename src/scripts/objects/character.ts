@@ -1,5 +1,5 @@
 export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite {
-  SPEED = 128
+  SPEED = 256
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
     super(scene, x, y, texture, frame)
     scene.add.existing(this)
