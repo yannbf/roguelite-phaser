@@ -4,7 +4,7 @@
   "description": "A Roguelite game made with Phaser",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack/webpack.dev.js",
+    "start": "webpack-dev-server --config webpack/webpack.dev.js --port 4000 --host 0.0.0.0",
     "build": "webpack --config webpack/webpack.prod.js",
     "desktop": "yarn build && npx cap copy && npx cap open electron",
     "ios": "yarn build && npx cap copy ios && npx cap open ios",

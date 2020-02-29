@@ -5,12 +5,16 @@
 # Install dependencies
 $ yarn
 
-# Start the local development server (on port 8080)
+# Start the local development server (on port 4000)
 $ yarn start
 
 # Build the production ready code to the /dist folder
 $ yarn build
 ```
+
+You can also run the game in whatever device you have wirelessly by using your ip instead of localhost, for instance **192.168.1.245:4000**. 
+
+It works with live reload as well.
 
 
 ## Building to native platforms
