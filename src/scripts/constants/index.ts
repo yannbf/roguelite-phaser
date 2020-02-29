@@ -1,7 +1,8 @@
 export const SCENES = {
   MAIN: 'MAIN',
   LOAD: 'LOAD',
-  MAIN_MENU: 'MAIN_MENU'
+  MAIN_MENU: 'MAIN_MENU',
+  HUD: 'HUD'
 }
 
 export const IMAGES = {
@@ -12,4 +13,11 @@ export const IMAGES = {
 export const AUDIOS = {
   TITLE_THEME: 'title-theme.mp3',
   CAVES_THEME: 'caves-theme.mp3'
+}
+
+export const EVENTS = {
+  PLAYER: {
+    INCREASE_HP: 'INCREASE_HP',
+    DECREASE_HP: 'DECREASE_HP'
+  }
 }

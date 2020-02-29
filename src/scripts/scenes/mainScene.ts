@@ -1,11 +1,9 @@
-import FpsText from '../objects/fpsText'
 import { SCENES, AUDIOS } from '../constants'
 import CharacterSprite from '../objects/character'
 import BaseScene from './baseScene'
 
 export default class MainScene extends BaseScene {
   PLAYER_SPEED = 128
-  fpsText: Phaser.GameObjects.Text
   character: Phaser.GameObjects.Image
   player: CharacterSprite
   keyboard: Phaser.Types.Input.Keyboard.CursorKeys
@@ -69,8 +67,6 @@ export default class MainScene extends BaseScene {
   }
 
   update(time: number, delta: number) {
-    this.fpsText.update()
-
     if (this.isMobile) {
       this.handleMobileInput()
     } else {
@@ -80,18 +76,9 @@ export default class MainScene extends BaseScene {
 
   // Custom methods
   setupGameObjects() {
-    this.fpsText = new FpsText(this)
     const { height, width } = this.game.renderer
 
     this.player = new CharacterSprite(this, width / 2, height / 2, 'hooded', 26)
-
-    this.add
-      .text(this.cameras.main.width - 15, 15, `Roguelite Phaser`, {
-        color: '#000000',
-        fontSize: 32,
-        fontFamily: '"Upheaval"'
-      })
-      .setOrigin(1, 0)
   }
 
   setupAudio() {
