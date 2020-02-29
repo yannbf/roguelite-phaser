@@ -1,4 +1,7 @@
 # Roguelite Phaser
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f7691c8b-a59f-457c-9f0f-fae3b28e8e89/deploy-status)](https://app.netlify.com/sites/roguelite-phaser/deploys)
+
+[Live demo](https://roguelite-phaser.netlify.com/)
 
 ## How To Use
 ```bash
