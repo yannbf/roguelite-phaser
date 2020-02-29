@@ -17,11 +17,20 @@ $ yarn build
 
 ### Desktop 💻
 ```bash
-# If you don't have electron installed yet
-$ yarn platforms
+# If you don't have electron in the project yet
+$ yarn platform:desktop
 
 # Skip right into this if you already have electron in the project
 $ yarn desktop
+```
+
+### iOS 📱
+```bash
+# If you don't have ios in the project yet
+$ yarn platform:ios
+
+# Skip right into this if you already have ios in the project
+$ yarn ios
 ```
 
 ## Music is too annoying?

@@ -7,7 +7,10 @@
     "start": "webpack-dev-server --config webpack/webpack.dev.js",
     "build": "webpack --config webpack/webpack.prod.js",
     "desktop": "yarn build && npx cap copy && npx cap open electron",
-    "platforms": "yarn build && npx cap add electron"
+    "ios": "yarn build && npx cap copy ios && npx cap open ios",
+    "platform:ios": "yarn build && npx cap add ios",
+    "platform:desktop": "yarn build && npx cap add electron",
+    "platforms": "yarn build && npx cap add electron && npx cap add ios"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -15,6 +18,7 @@
   "devDependencies": {
     "@capacitor/cli": "^1.5.0",
     "@capacitor/core": "^1.5.0",
+    "@capacitor/ios": "^1.5.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "html-webpack-plugin": "^3.2.0",
