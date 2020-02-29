@@ -19,6 +19,13 @@ You can also run the game in whatever device you have wirelessly by using your i
 
 It works with live reload as well.
 
+## Debug mode
+Sometimes it's important to use the debug mode in order to understand what is going on.
+Currently the supported feature in debugging in collision boxes and direction of arcade sprites.
+To use it, just load the URL with `?debug=true` parameter. 
+
+Example: `localhost:4000/?debug=true`
+
 
 ## Building to native platforms
 

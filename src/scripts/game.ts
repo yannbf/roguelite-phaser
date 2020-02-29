@@ -8,6 +8,9 @@ import MenuScene from './scenes/menuScene'
 const DEFAULT_WIDTH = 1280
 const DEFAULT_HEIGHT = 720
 
+const urlParams = new URLSearchParams(window.location.search)
+const debug = urlParams.get('debug') === 'true'
+
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   backgroundColor: '#ffffff',
@@ -22,7 +25,7 @@ const config: Phaser.Types.Core.GameConfig = {
   physics: {
     default: 'arcade',
     arcade: {
-      debug: false
+      debug
     }
   },
   render: {
