@@ -5,6 +5,7 @@ export default class CharacterSprite extends Phaser.Physics.Arcade.Sprite {
     scene.add.existing(this)
     scene.physics.add.existing(this)
     scene.physics.world.enableBody(this)
+    this.setCollideWorldBounds(true)
     this.setScale(2)
   }
 
