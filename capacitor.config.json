@@ -1,0 +1,8 @@
+{
+  "appId": "com.braga.roguelitephaser",
+  "appName": "Roguelite Phaser",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "dist",
+  "cordova": {}
+}

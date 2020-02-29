@@ -2,3 +2,6 @@
 /dist
 /.cache
 /.vscode
+
+/electron
+yarn-error.log

@@ -12,6 +12,18 @@ $ yarn start
 $ yarn build
 ```
 
+
+## Building to native platforms
+
+### Desktop 💻
+```bash
+# If you don't have electron installed yet
+$ yarn platforms
+
+# Skip right into this if you already have electron in the project
+$ yarn desktop
+```
+
 ## Music is too annoying?
 Right click on the tab -> Mute site
 
