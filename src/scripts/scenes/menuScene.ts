@@ -22,6 +22,15 @@ export default class MenuScene extends Phaser.Scene {
 
     this.input.keyboard.once('keydown_SPACE', () => this.startGame())
     this.input.once('pointerdown', () => this.startGame())
+
+    this.input.gamepad.once('connected', () => {
+      this.input.gamepad.pad1.once('down', index => {
+        // index of X button
+        if (index === 0) {
+          this.startGame()
+        }
+      })
+    })
   }
 
   setupBackground() {
