@@ -19,14 +19,14 @@ export default class Controller {
         x: 125,
         y: this.scene.cameras.main.height - 125
       }
-      this.movementJoystick = this.createJoystick(movementJoystickOpts)
+      this.movementJoystick = this.createVirtualJoystick(movementJoystickOpts)
 
       // Create shooting joystick
       const shootJoystickOpts = {
         x: this.scene.cameras.main.width - 125,
         y: this.scene.cameras.main.height - 125
       }
-      this.shootJoystick = this.createJoystick(shootJoystickOpts)
+      this.shootJoystick = this.createVirtualJoystick(shootJoystickOpts)
     } else {
       this.keyboard = this.scene.input.keyboard.createCursorKeys()
     }
@@ -134,7 +134,7 @@ export default class Controller {
     return { direction, velocity }
   }
 
-  createJoystick(options: any = {}, onUpdate = () => {}) {
+  createVirtualJoystick(options: any = {}, onUpdate = () => {}) {
     const { x, y, radius = 100, forceMin = 0 } = options
     const joystick = (this.scene.plugins.get('rexVirtualJoystick') as any)
       .add(this.scene, {
