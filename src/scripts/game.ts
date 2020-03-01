@@ -33,7 +33,8 @@ const config: Phaser.Types.Core.GameConfig = {
     pixelArt: true
   },
   input: {
-    activePointers: 3
+    activePointers: 3,
+    gamepad: true
   },
   plugins: {
     global: [

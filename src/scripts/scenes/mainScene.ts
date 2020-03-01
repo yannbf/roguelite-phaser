@@ -66,8 +66,10 @@ export default class MainScene extends BaseScene {
     this.setupInput()
   }
 
-  update(time: number, delta: number) {
-    if (this.isMobile) {
+  update() {
+    if (this.input.gamepad.total && this.input.gamepad.pad1?.connected) {
+      this.handleJoystickInput()
+    } else if (this.isMobile) {
       this.handleMobileInput()
     } else {
       this.handleDesktopInput()
@@ -132,8 +134,7 @@ export default class MainScene extends BaseScene {
       this.player.setVelocityY(speed * Math.sin((Math.PI * this.movementJoystick.angle) / 180))
     } else {
       // Stop moving
-      this.player.setVelocityX(0)
-      this.player.setVelocityY(0)
+      this.player.setVelocity(0, 0)
     }
   }
 
@@ -155,8 +156,35 @@ export default class MainScene extends BaseScene {
     if (this.keyboard.left?.isUp && this.keyboard.right?.isUp) {
       this.player.setVelocityX(0)
     }
+
     if (this.keyboard.up?.isUp && this.keyboard.down?.isUp) {
       this.player.setVelocityY(0)
+    }
+  }
+
+  handleJoystickInput() {
+    const pad = this.input.gamepad.pad1
+
+    const xAxis = pad.axes[0].getValue()
+    const yAxis = pad.axes[1].getValue()
+
+    if (xAxis > 0) {
+      this.player.walk('right')
+    }
+    if (xAxis < 0) {
+      this.player.walk('left')
+    }
+    if (yAxis < 0) {
+      this.player.walk('up')
+    }
+    if (yAxis > 0) {
+      this.player.walk('down')
+    }
+
+    this.player.setVelocity(this.player.SPEED * xAxis, this.player.SPEED * yAxis)
+
+    if (xAxis === 0 && yAxis === 0) {
+      this.player.setVelocity(0, 0)
     }
   }
 }
