@@ -1,9 +1,9 @@
-import { SCENES, AUDIOS, IMAGES } from '../constants'
+import { SCENES, AUDIOS, IMAGES } from '@game/constants'
 
 // For easier development experience. Change to whatever scene you want to load first.
 const STARTING_SCENE = SCENES.MAIN_MENU
 
-export default class PreloadScene extends Phaser.Scene {
+export class PreloadScene extends Phaser.Scene {
   constructor() {
     super({ key: SCENES.LOAD })
   }
@@ -44,8 +44,8 @@ export default class PreloadScene extends Phaser.Scene {
 
   create() {
     this.sound.pauseOnBlur = false
-    this.scene.start(STARTING_SCENE)
     this.scene.start(SCENES.HUD)
+    this.scene.start(STARTING_SCENE)
     /**
      * This is how you would dynamically import the mainScene class (with code splitting),
      * add the mainScene to the Scene Manager

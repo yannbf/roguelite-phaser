@@ -1,10 +1,7 @@
 import 'phaser'
 import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js'
 
-import MainScene from './scenes/mainScene'
-import PreloadScene from './scenes/preloadScene'
-import MenuScene from './scenes/menuScene'
-import HUDScene from './scenes/HUDScene'
+import { MainScene, PreloadScene, MenuScene, HUDScene } from './scenes'
 
 const DEFAULT_WIDTH = 1280
 const DEFAULT_HEIGHT = 720
