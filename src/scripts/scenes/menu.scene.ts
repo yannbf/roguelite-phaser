@@ -1,6 +1,6 @@
 import { SCENES, IMAGES, AUDIOS } from '../constants'
 
-export default class MenuScene extends Phaser.Scene {
+export class MenuScene extends Phaser.Scene {
   background: Phaser.GameObjects.Image
   music: Phaser.Sound.BaseSound
 

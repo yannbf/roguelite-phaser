@@ -1,10 +1,10 @@
 import { SCENES, AUDIOS } from '../constants'
 import CharacterSprite from '../objects/character'
-import BaseScene from './baseScene'
+import { BaseScene } from './base.scene'
 import Controller from '../system/controller'
 import { CharacterMovement, ControllableScene } from '../types'
 
-export default class MainScene extends BaseScene implements ControllableScene {
+export class MainScene extends BaseScene implements ControllableScene {
   controller: Controller
   player: CharacterSprite
 

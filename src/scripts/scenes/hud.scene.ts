@@ -1,7 +1,7 @@
 import FpsText from '../objects/fpsText'
 import { SCENES, EVENTS } from '../constants'
 
-export default class HUDScene extends Phaser.Scene {
+export class HUDScene extends Phaser.Scene {
   fpsText: Phaser.GameObjects.Text
   healthBar: Phaser.GameObjects.Text
   hp: number = 3
@@ -9,7 +9,6 @@ export default class HUDScene extends Phaser.Scene {
   constructor() {
     super({ key: SCENES.HUD })
   }
-
   create() {
     this.setupTexts()
     this.setupEvents()
@@ -39,11 +38,13 @@ export default class HUDScene extends Phaser.Scene {
   }
 
   createText(x: number, y: number, text: string, color = '#000000') {
-    return this.add.text(x, y, text, {
-      color,
-      fontSize: 32,
-      fontFamily: '"Upheaval"'
-    })
+    return this.add
+      .text(x, y, text, {
+        color,
+        fontSize: 32,
+        fontFamily: '"Upheaval"'
+      })
+      .setDepth(10)
   }
 
   setHP(hp: number) {

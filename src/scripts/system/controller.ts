@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 
-import MainScene from '../scenes/mainScene'
+import { MainScene } from '../scenes'
 import { CharacterMovement } from '../types'
 
 export default class Controller {
