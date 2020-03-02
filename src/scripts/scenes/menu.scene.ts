@@ -1,4 +1,4 @@
-import { SCENES, IMAGES, AUDIOS } from '../constants'
+import { SCENES, IMAGES, AUDIOS } from '@game/constants'
 
 export class MenuScene extends Phaser.Scene {
   background: Phaser.GameObjects.Image

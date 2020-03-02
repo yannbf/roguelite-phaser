@@ -1,4 +1,4 @@
-import { SCENES, AUDIOS, IMAGES } from '../constants'
+import { SCENES, AUDIOS, IMAGES } from '@game/constants'
 
 // For easier development experience. Change to whatever scene you want to load first.
 const STARTING_SCENE = SCENES.MAIN_MENU

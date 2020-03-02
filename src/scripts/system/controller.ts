@@ -1,9 +1,9 @@
 import Phaser from 'phaser'
 
-import { MainScene } from '../scenes'
-import { CharacterMovement } from '../types'
+import { MainScene } from '@game/scenes'
+import { CharacterMovement } from '@game/types'
 
-export default class Controller {
+export class Controller {
   movementJoystick: any
   shootJoystick: any
   keyboard: Phaser.Types.Input.Keyboard.CursorKeys

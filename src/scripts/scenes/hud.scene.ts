@@ -1,5 +1,5 @@
-import FpsText from '../objects/fpsText'
-import { SCENES, EVENTS } from '../constants'
+import { FpsText } from '@game/objects'
+import { SCENES, EVENTS } from '@game/constants'
 
 export class HUDScene extends Phaser.Scene {
   fpsText: Phaser.GameObjects.Text

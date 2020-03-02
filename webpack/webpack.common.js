@@ -2,6 +2,7 @@ const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { InjectManifest } = require('workbox-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = {
   entry: ['./src/scripts/game.ts', './webpack/credits.js'],
@@ -11,7 +12,8 @@ module.exports = {
     chunkFilename: '[name].chunk.js'
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
+    plugins: [new TsconfigPathsPlugin()]
   },
   module: {
     rules: [{ test: /\.tsx?$/, include: path.join(__dirname, '../src'), loader: 'ts-loader' }]

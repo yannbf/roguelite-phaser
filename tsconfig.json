@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src/scripts",
+    "paths": {
+      "@game/scenes": ["scenes/index.ts"],
+      "@game/system": ["system/index.ts"],
+      "@game/objects": ["objects/index.ts"],
+      "@game/types": ["types/index.ts"],
+      "@game/constants": ["constants/index.ts"],
+    },
     "target": "es5",
     "module": "commonjs",
     "strict": true,

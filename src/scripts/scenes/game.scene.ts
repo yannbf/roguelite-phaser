@@ -1,8 +1,8 @@
-import { SCENES, AUDIOS } from '../constants'
-import CharacterSprite from '../objects/character'
+import { SCENES, AUDIOS } from '@game/constants'
+import { CharacterSprite } from '@game/objects'
+import { Controller } from '@game/system'
+import { CharacterMovement, ControllableScene } from '@game/types'
 import { BaseScene } from './base.scene'
-import Controller from '../system/controller'
-import { CharacterMovement, ControllableScene } from '../types'
 
 export class MainScene extends BaseScene implements ControllableScene {
   controller: Controller
