@@ -21,6 +21,7 @@ export class PreloadScene extends Phaser.Scene {
   loadSprites() {
     this.load.setPath('assets/sprite')
     this.load.atlas('characters', 'characters.png', 'characters_atlas.json')
+    this.load.atlas('isaac', 'isaac.png', 'isaac_atlas.json')
   }
 
   preload() {

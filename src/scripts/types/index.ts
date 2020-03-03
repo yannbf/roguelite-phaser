@@ -1,5 +1,7 @@
+export type Direction = 'idle' | 'right' | 'left' | 'down' | 'up'
 export type CharacterMovement = {
-  direction: undefined | 'right' | 'left' | 'down' | 'up'
+  direction: Direction
+  shotDirection?: Direction
   velocity: {
     x: number
     y: number
@@ -8,4 +10,5 @@ export type CharacterMovement = {
 
 export interface ControllableScene {
   onMove(movement: CharacterMovement): void
+  onShoot(direction: Direction): void
 }

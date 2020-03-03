@@ -1,12 +1,12 @@
 import { SCENES, AUDIOS } from '@game/constants'
-import { CharacterSprite } from '@game/objects'
+import { Player } from '@game/objects'
 import { Controller } from '@game/system'
-import { CharacterMovement, ControllableScene } from '@game/types'
+import { CharacterMovement, ControllableScene, Direction } from '@game/types'
 import { BaseScene } from './base.scene'
 
 export class MainScene extends BaseScene implements ControllableScene {
   controller: Controller
-  player: CharacterSprite
+  player: Player
 
   constructor() {
     super({ key: SCENES.MAIN })
@@ -38,10 +38,12 @@ export class MainScene extends BaseScene implements ControllableScene {
     this.player.walk(movement)
   }
 
-  setupGameObjects() {
-    const { height, width } = this.game.renderer
+  onShoot(direction: Direction) {
+    this.player.shoot(direction)
+  }
 
-    this.player = new CharacterSprite(this, width / 2, height / 2, 'hooded', 26)
+  setupGameObjects() {
+    this.player = new Player(this)
   }
 
   setupAudio() {
