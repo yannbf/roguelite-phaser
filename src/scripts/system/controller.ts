@@ -1,12 +1,23 @@
 import Phaser from 'phaser'
 
 import { MainScene } from '@game/scenes'
-import { CharacterMovement } from '@game/types'
+import { CharacterMovement, Direction } from '@game/types'
+
+type KeyboardInput = {
+  up: Phaser.Input.Keyboard.Key
+  down: Phaser.Input.Keyboard.Key
+  left: Phaser.Input.Keyboard.Key
+  right: Phaser.Input.Keyboard.Key
+  shootUp: Phaser.Input.Keyboard.Key
+  shootDown: Phaser.Input.Keyboard.Key
+  shootLeft: Phaser.Input.Keyboard.Key
+  shootRight: Phaser.Input.Keyboard.Key
+}
 
 export class Controller {
   movementJoystick: any
   shootJoystick: any
-  keyboard: Phaser.Types.Input.Keyboard.CursorKeys
+  keyboard: KeyboardInput
 
   constructor(public scene: MainScene) {
     this.init()
@@ -28,7 +39,16 @@ export class Controller {
       }
       this.shootJoystick = this.createVirtualJoystick(shootJoystickOpts)
     } else {
-      this.keyboard = this.scene.input.keyboard.createCursorKeys()
+      this.keyboard = this.scene.input.keyboard.addKeys({
+        up: Phaser.Input.Keyboard.KeyCodes.W,
+        down: Phaser.Input.Keyboard.KeyCodes.S,
+        left: Phaser.Input.Keyboard.KeyCodes.A,
+        right: Phaser.Input.Keyboard.KeyCodes.D,
+        shootUp: Phaser.Input.Keyboard.KeyCodes.UP,
+        shootDown: Phaser.Input.Keyboard.KeyCodes.DOWN,
+        shootLeft: Phaser.Input.Keyboard.KeyCodes.LEFT,
+        shootRight: Phaser.Input.Keyboard.KeyCodes.RIGHT
+      }) as KeyboardInput
     }
   }
 
@@ -43,10 +63,14 @@ export class Controller {
     }
 
     this.scene.onMove(movement)
+    if (movement.shotDirection) {
+      this.scene.onShoot(movement.shotDirection)
+    }
   }
 
   getMobileInput(): CharacterMovement {
     let direction
+    let shotDirection
     let velocity = { x: 0, y: 0 }
 
     if (this.movementJoystick.force) {
@@ -73,11 +97,35 @@ export class Controller {
       velocity.y = speedMultiplier * Math.sin((Math.PI * this.movementJoystick.angle) / 180)
     }
 
-    return { direction, velocity }
+    if (this.shootJoystick.force) {
+      const forceMultiplier =
+        this.shootJoystick.force < this.shootJoystick.radius ? this.shootJoystick.force / this.shootJoystick.radius : 1
+
+      if (this.shootJoystick.right) {
+        shotDirection = 'right'
+      }
+      if (this.shootJoystick.left) {
+        shotDirection = 'left'
+      }
+      if (this.shootJoystick.up) {
+        shotDirection = 'up'
+      }
+      if (this.shootJoystick.down) {
+        shotDirection = 'down'
+      }
+
+      // subtle click on the joystick - means stop shooting
+      if (forceMultiplier <= 0.3) {
+        shotDirection = 'idle'
+      }
+    }
+
+    return { direction, shotDirection, velocity }
   }
 
   getDesktopInput(): CharacterMovement {
     let direction
+    let shotDirection
     let velocity = { x: 0, y: 0 }
 
     if (this.keyboard.right?.isDown === true) {
@@ -104,16 +152,31 @@ export class Controller {
       velocity.y = 0
     }
 
-    return { direction, velocity }
+    if (this.keyboard.shootRight?.isDown === true) {
+      shotDirection = 'right'
+    } else if (this.keyboard.shootLeft?.isDown === true) {
+      shotDirection = 'left'
+    } else if (this.keyboard.shootUp?.isDown === true) {
+      shotDirection = 'up'
+    } else if (this.keyboard.shootDown?.isDown === true) {
+      shotDirection = 'down'
+    } else {
+      shotDirection = 'idle'
+    }
+
+    return { direction, shotDirection, velocity }
   }
 
   getJoystickInput(): CharacterMovement {
     let direction
+    let shotDirection: Direction = 'idle'
     let velocity = { x: 0, y: 0 }
 
     const pad = this.scene.input.gamepad.pad1
     const xAxis = pad.axes[0].getValue()
     const yAxis = pad.axes[1].getValue()
+    const shootXAxis = pad.axes[2].getValue()
+    const shootYAxis = pad.axes[3].getValue()
 
     if (xAxis > 0) {
       direction = 'right'
@@ -128,10 +191,23 @@ export class Controller {
       direction = 'down'
     }
 
+    if (shootXAxis > 0) {
+      shotDirection = 'right'
+    }
+    if (shootXAxis < 0) {
+      shotDirection = 'left'
+    }
+    if (shootYAxis < 0) {
+      shotDirection = 'up'
+    }
+    if (shootYAxis > 0) {
+      shotDirection = 'down'
+    }
+
     velocity.x = xAxis
     velocity.y = yAxis
 
-    return { direction, velocity }
+    return { direction, shotDirection, velocity }
   }
 
   createVirtualJoystick(options: any = {}, onUpdate = () => {}) {
