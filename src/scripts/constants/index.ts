@@ -14,6 +14,7 @@ export const IMAGES = {
 export const AUDIOS = {
   TITLE_THEME: 'title-theme.mp3',
   CAVES_THEME: 'caves-theme.mp3',
+  TITLE_TRANSITION: 'title-transition.mp3',
   TEAR: 'tear.mp3'
 }
 
