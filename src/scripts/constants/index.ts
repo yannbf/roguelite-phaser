@@ -7,12 +7,14 @@ export const SCENES = {
 
 export const IMAGES = {
   TITLE_BACKGROUND: 'start-screen.jpg',
-  LOGO: 'phaser-logo.png'
+  LOGO: 'phaser-logo.png',
+  TEAR: 'tear.png'
 }
 
 export const AUDIOS = {
   TITLE_THEME: 'title-theme.mp3',
-  CAVES_THEME: 'caves-theme.mp3'
+  CAVES_THEME: 'caves-theme.mp3',
+  TEAR: 'tear.mp3'
 }
 
 export const EVENTS = {

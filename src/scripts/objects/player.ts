@@ -1,14 +1,21 @@
-import { CharacterMovement } from '@game/types'
+import { CharacterMovement, Direction } from '@game/types'
+import { AUDIOS } from '@game/constants'
+import { Tears } from './projectile'
 
 export class Player {
   SPEED = 256
   SHOT_SPEED = 0.4
   _head: Phaser.Physics.Arcade.Sprite
   _body: Phaser.Physics.Arcade.Sprite
+  tears: Tears
+  tearSound: Phaser.Sound.BaseSound
+  tearCooldown = 0
 
   constructor(private scene: Phaser.Scene) {
     this.setupSprites()
     this.setupAnimations()
+
+    this.tears = new Tears(this.scene)
   }
 
   setupSprites() {
@@ -33,6 +40,8 @@ export class Player {
     this._body.body.setSize(30, 35)
     this._body.body.setOffset(1, -14)
     this._body.setScale(3)
+
+    this.tearSound = this.scene.sound.add(AUDIOS.TEAR, { volume: 0.5 })
   }
 
   setupAnimations() {
@@ -177,15 +186,21 @@ export class Player {
     this._head.setVelocity(this.SPEED * velocity.x, this.SPEED * velocity.y)
   }
 
-  look(direction: CharacterMovement['direction']) {
+  look(direction: Direction) {
     if (!this._head.anims.isPlaying) {
       this._head.setFrame(`${direction}shoot0.png`)
     }
   }
 
-  shoot(direction: CharacterMovement['direction'] | 'idle' = 'idle') {
+  shoot(direction: Direction) {
     if (direction !== 'idle') {
-      this._head.anims.setTimeScale(this.SHOT_SPEED)
+      if (this.scene.game.getTime() > this.tearCooldown) {
+        this._head.anims.setTimeScale(this.SHOT_SPEED)
+        this.tearSound.play()
+        this.tears.fire(this._head.x, this._head.y, direction, this.SHOT_SPEED * 1000)
+
+        this.tearCooldown = this.scene.game.getTime() + (1 - this.SHOT_SPEED) * 1000
+      }
     }
 
     this._head.play(`shoot_${direction}`, true)
