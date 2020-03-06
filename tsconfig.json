@@ -6,6 +6,7 @@
       "@game/system": ["system/index.ts"],
       "@game/objects": ["objects/index.ts"],
       "@game/types": ["types/index.ts"],
+      "@game/shaders": ["shaders/index.ts"],
       "@game/constants": ["constants/index.ts"],
     },
     "target": "es5",

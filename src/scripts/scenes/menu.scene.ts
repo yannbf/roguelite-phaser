@@ -1,4 +1,5 @@
 import { SCENES, IMAGES, AUDIOS } from '@game/constants'
+import { VignetteShader } from '@game/shaders'
 import { BaseScene } from './base.scene'
 
 export class MenuScene extends BaseScene {
@@ -17,6 +18,7 @@ export class MenuScene extends BaseScene {
   }
 
   create() {
+    this.setupShaders()
     this.setupSprites()
     this.setupTexts()
     this.setupAudio()
@@ -49,6 +51,14 @@ export class MenuScene extends BaseScene {
         end: 1
       })
     })
+  }
+
+  setupShaders() {
+    const vignettePipeline = (this.game.renderer as Phaser.Renderer.WebGL.WebGLRenderer).addPipeline(
+      'Vignette',
+      new VignetteShader(this.game, this.width - 200, this.height)
+    )
+    this.cameras.main.setRenderToTexture(vignettePipeline)
   }
 
   setupSprites() {
