@@ -11,6 +11,11 @@ export const IMAGES = {
   TEAR: 'tear.png'
 }
 
+export const SPRITES = {
+  CHARACTERS: 'characters',
+  ISAAC: 'isaac'
+}
+
 export const AUDIOS = {
   TITLE_THEME: 'title-theme.mp3',
   CAVES_THEME: 'caves-theme.mp3',
