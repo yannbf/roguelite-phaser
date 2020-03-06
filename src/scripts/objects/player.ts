@@ -1,5 +1,6 @@
 import { CharacterMovement, Direction } from '@game/types'
 import { AUDIOS, SPRITES } from '@game/constants'
+import { BaseScene } from '@game/scenes'
 import { Tears } from './projectile'
 
 export class Player {
@@ -11,7 +12,7 @@ export class Player {
   tearSound: Phaser.Sound.BaseSound
   tearCooldown = 0
 
-  constructor(private scene: Phaser.Scene) {
+  constructor(private scene: BaseScene) {
     this.setupSprites()
     this.setupAnimations()
 
@@ -19,9 +20,10 @@ export class Player {
   }
 
   setupSprites() {
-    const { height, width } = this.scene.game.renderer
+    const initialX = this.scene.halfWidth
+    const initialY = this.scene.height * 0.75
 
-    this._head = new Phaser.Physics.Arcade.Sprite(this.scene, width / 2, height / 2, SPRITES.ISAAC, 14)
+    this._head = new Phaser.Physics.Arcade.Sprite(this.scene, initialX, initialY, SPRITES.ISAAC, 14)
     this._head.setDepth(2)
     this.scene.add.existing(this._head)
     this.scene.physics.add.existing(this._head)
@@ -31,7 +33,7 @@ export class Player {
     this._head.setCollideWorldBounds(true)
     this._head.setScale(3)
 
-    this._body = new Phaser.Physics.Arcade.Sprite(this.scene, width / 2, 42 + height / 2, SPRITES.ISAAC, 0)
+    this._body = new Phaser.Physics.Arcade.Sprite(this.scene, initialX, 42 + initialY, SPRITES.ISAAC, 0)
     this._body.setDepth(1)
     this.scene.add.existing(this._body)
     this.scene.physics.add.existing(this._body)

@@ -7,6 +7,7 @@ export const SCENES = {
 
 export const IMAGES = {
   TEAR: 'tear.png',
+  BG_CONTROLS: 'controls.png',
   TITLE_SHADOW: 'title-shadow.png'
 }
 
