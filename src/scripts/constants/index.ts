@@ -6,14 +6,14 @@ export const SCENES = {
 }
 
 export const IMAGES = {
-  TITLE_BACKGROUND: 'start-screen.jpg',
-  LOGO: 'phaser-logo.png',
-  TEAR: 'tear.png'
+  TEAR: 'tear.png',
+  TITLE_SHADOW: 'title-shadow.png'
 }
 
 export const SPRITES = {
   CHARACTERS: 'characters',
-  ISAAC: 'isaac'
+  ISAAC: 'isaac',
+  TITLE_SCREEN: 'title-screen'
 }
 
 export const AUDIOS = {

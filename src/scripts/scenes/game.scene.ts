@@ -22,6 +22,10 @@ export class MainScene extends BaseScene implements ControllableScene {
     })
   }
 
+  init() {
+    this.mainCamera.fadeIn()
+  }
+
   create() {
     this.setupGameObjects()
     this.setupAudio()

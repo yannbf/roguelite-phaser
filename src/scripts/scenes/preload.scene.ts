@@ -44,7 +44,6 @@ export class PreloadScene extends Phaser.Scene {
 
   create() {
     this.sound.pauseOnBlur = false
-    this.scene.start(SCENES.HUD)
     this.scene.start(STARTING_SCENE)
     /**
      * This is how you would dynamically import the mainScene class (with code splitting),
