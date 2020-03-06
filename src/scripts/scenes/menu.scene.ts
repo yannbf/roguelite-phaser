@@ -63,24 +63,24 @@ export class MenuScene extends BaseScene {
     this.background.setScale(scale)
 
     this.shadowOverlay = this.add
-      .image(-40, this.halfHeight, IMAGES.TITLE_SHADOW)
+      .image(-20, this.halfHeight - 40, IMAGES.TITLE_SHADOW)
       .setOrigin(0)
       .setDepth(1)
-      .setScale(2.5)
+      .setScale(2.8)
 
-    this.logo = this.add.sprite(this.halfWidth, this.height * 0.2, 'title-screen', 'menu_logo.png').setScale(2.5)
+    this.logo = this.add.sprite(this.halfWidth, this.height * 0.24, 'title-screen', 'menu_logo.png').setScale(2.65)
 
     this.tweens.add({
       targets: this.logo,
       duration: 800,
       yoyo: true,
-      angle: 2,
+      angle: 1,
       repeat: -1
     })
 
     this.startAnimation = this.add
-      .sprite(this.halfWidth, this.height * 0.55, 'title-screen', 'title_start0.png')
-      .setScale(2.5)
+      .sprite(this.halfWidth - 15, this.height * 0.61, 'title-screen', 'title_start0.png')
+      .setScale(2.7)
 
     this.startAnimation.play('blink-start')
   }
