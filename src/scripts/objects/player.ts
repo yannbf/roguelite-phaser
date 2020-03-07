@@ -4,13 +4,14 @@ import { BaseScene } from '@game/scenes'
 import { Tears } from './projectile'
 
 export class Player {
-  SPEED = 256
-  SHOT_SPEED = 0.4
+  private BASE_SPEED = 256
+  private SPEED_MULTIPLIER = 1
+  private SHOT_SPEED = 0.4
+  private tearSound: Phaser.Sound.BaseSound
+  private tearCooldown = 0
+  private tears: Tears
   _head: Phaser.Physics.Arcade.Sprite
   _body: Phaser.Physics.Arcade.Sprite
-  tears: Tears
-  tearSound: Phaser.Sound.BaseSound
-  tearCooldown = 0
 
   constructor(private scene: BaseScene) {
     this.setupSprites()
@@ -19,31 +20,40 @@ export class Player {
     this.tears = new Tears(this.scene)
   }
 
+  private get speed() {
+    return this.BASE_SPEED * this.SPEED_MULTIPLIER
+  }
+
+  setSpeed(speed: number) {
+    this.SPEED_MULTIPLIER = speed
+  }
+
   setupSprites() {
     const initialX = this.scene.halfWidth
     const initialY = this.scene.height * 0.75
 
-    this._head = new Phaser.Physics.Arcade.Sprite(this.scene, initialX, initialY, SPRITES.ISAAC, 14)
-    this._head.setDepth(2)
-    this.scene.add.existing(this._head)
-    this.scene.physics.add.existing(this._head)
-    this.scene.physics.world.enableBody(this._head)
-    this._head.body.setSize(30, 35)
-    this._head.body.setOffset(5, 5)
-    this._head.setCollideWorldBounds(true)
-    this._head.setScale(3)
-
-    this._body = new Phaser.Physics.Arcade.Sprite(this.scene, initialX, 42 + initialY, SPRITES.ISAAC, 0)
-    this._body.setDepth(1)
-    this.scene.add.existing(this._body)
-    this.scene.physics.add.existing(this._body)
-    this.scene.physics.world.enableBody(this._body)
-    this._body.setCollideWorldBounds(true)
-    this._body.body.setSize(30, 35)
+    this._body = this.createSprite(initialX, 42 + initialY)
     this._body.body.setOffset(1, -14)
-    this._body.setScale(3)
+
+    this._head = this.createSprite(initialX, initialY)
+    this._head.body.setOffset(5, 5)
 
     this.tearSound = this.scene.sound.add(AUDIOS.TEAR, { volume: 0.5 })
+  }
+
+  createSprite(initialX, initialY): Phaser.Physics.Arcade.Sprite {
+    const sprite = new Phaser.Physics.Arcade.Sprite(this.scene, initialX, initialY, SPRITES.ISAAC, 0)
+    sprite.setDepth(1)
+    this.scene.add.existing(sprite)
+    this.scene.physics.add.existing(sprite)
+    this.scene.physics.world.enableBody(sprite)
+    sprite.setCollideWorldBounds(true)
+    sprite.body.setSize(30, 35)
+    sprite.setScale(3)
+    sprite.setDamping(true)
+    sprite.setDrag(0.9)
+
+    return sprite
   }
 
   setupAnimations() {
@@ -184,8 +194,16 @@ export class Player {
   walk({ direction, velocity }: CharacterMovement) {
     this._body.play(direction || 'idle', true)
     this.look(direction || 'down')
-    this._body.setVelocity(this.SPEED * velocity.x, this.SPEED * velocity.y)
-    this._head.setVelocity(this.SPEED * velocity.x, this.SPEED * velocity.y)
+
+    if (velocity.x !== 0) {
+      this._body.setVelocityX(this.speed * velocity.x)
+      this._head.setVelocityX(this.speed * velocity.x)
+    }
+
+    if (velocity.y !== 0) {
+      this._body.setVelocityY(this.speed * velocity.y)
+      this._head.setVelocityY(this.speed * velocity.y)
+    }
   }
 
   look(direction: Direction) {
