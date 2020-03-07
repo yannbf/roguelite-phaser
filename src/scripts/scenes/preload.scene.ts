@@ -1,4 +1,4 @@
-import { SCENES, AUDIOS, IMAGES } from '@game/constants'
+import { SCENES, AUDIOS, IMAGES, SPRITES } from '@game/constants'
 
 // For easier development experience. Change to whatever scene you want to load first.
 const STARTING_SCENE = SCENES.MAIN_MENU
@@ -20,8 +20,7 @@ export class PreloadScene extends Phaser.Scene {
 
   loadSprites() {
     this.load.setPath('assets/sprite')
-    this.load.atlas('characters', 'characters.png', 'characters_atlas.json')
-    this.load.atlas('isaac', 'isaac.png', 'isaac_atlas.json')
+    Object.values(SPRITES).forEach(sprite => this.load.atlas(sprite, `${sprite}.png`, `${sprite}.json`))
   }
 
   preload() {
@@ -45,7 +44,6 @@ export class PreloadScene extends Phaser.Scene {
 
   create() {
     this.sound.pauseOnBlur = false
-    this.scene.start(SCENES.HUD)
     this.scene.start(STARTING_SCENE)
     /**
      * This is how you would dynamically import the mainScene class (with code splitting),

@@ -16,7 +16,14 @@ module.exports = {
     plugins: [new TsconfigPathsPlugin()]
   },
   module: {
-    rules: [{ test: /\.tsx?$/, include: path.join(__dirname, '../src'), loader: 'ts-loader' }]
+    rules: [
+      { test: /\.tsx?$/, include: path.join(__dirname, '../src'), loader: 'ts-loader' },
+      {
+        test: [/\.glsl$/],
+        exclude: /node_modules/,
+        use: 'raw-loader'
+      }
+    ]
   },
   optimization: {
     splitChunks: {

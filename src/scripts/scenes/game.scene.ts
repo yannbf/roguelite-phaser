@@ -1,4 +1,4 @@
-import { SCENES, AUDIOS } from '@game/constants'
+import { SCENES, AUDIOS, IMAGES } from '@game/constants'
 import { Player } from '@game/objects'
 import { Controller } from '@game/system'
 import { CharacterMovement, ControllableScene, Direction } from '@game/types'
@@ -22,6 +22,10 @@ export class MainScene extends BaseScene implements ControllableScene {
     })
   }
 
+  init() {
+    this.mainCamera.fadeIn()
+  }
+
   create() {
     this.setupGameObjects()
     this.setupAudio()
@@ -43,6 +47,8 @@ export class MainScene extends BaseScene implements ControllableScene {
   }
 
   setupGameObjects() {
+    // TODO: only show this in the very first floor, very first room
+    this.add.image(this.halfWidth, this.halfHeight, IMAGES.BG_CONTROLS).setScale(3)
     this.player = new Player(this)
   }
 
