@@ -8,6 +8,7 @@
       "@game/types": ["types/index.ts"],
       "@game/shaders": ["shaders/index.ts"],
       "@game/constants": ["constants/index.ts"],
+      "@game/util": ["util/index.ts"],
     },
     "target": "es5",
     "module": "commonjs",
