@@ -1,7 +1,7 @@
 import 'phaser'
 import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js'
 
-import { MainScene, PreloadScene, MenuScene, HUDScene } from './scenes'
+import { MainScene, PreloadScene, MenuScene, HUDScene, PauseScene } from './scenes'
 
 const DEFAULT_WIDTH = 1280
 const DEFAULT_HEIGHT = 720
@@ -19,7 +19,7 @@ const config: Phaser.Types.Core.GameConfig = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT
   },
-  scene: [PreloadScene, HUDScene, MenuScene, MainScene],
+  scene: [PreloadScene, MenuScene, MainScene, HUDScene, PauseScene],
   physics: {
     default: 'arcade',
     arcade: {
