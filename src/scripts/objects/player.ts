@@ -7,6 +7,7 @@ export class Player {
   private BASE_SPEED = 256
   private SPEED_MULTIPLIER = 1
   private SHOT_SPEED = 0.4
+  private RANGE = 0.4
   private tearSound: Phaser.Sound.BaseSound
   private tearCooldown = 0
   private tears: Tears
@@ -68,8 +69,8 @@ export class Player {
       frames: this.scene.anims.generateFrameNames(SPRITES.ISAAC, {
         prefix: 'downshoot',
         suffix: '.png',
-        start: 0
-      })
+        start: 0,
+      }),
     })
 
     this.scene.anims.create({
@@ -79,10 +80,10 @@ export class Player {
         prefix: 'rightshoot',
         suffix: '.png',
         start: 0,
-        end: 1
+        end: 1,
       }),
 
-      repeat: -1
+      repeat: -1,
     })
 
     this.scene.anims.create({
@@ -92,10 +93,10 @@ export class Player {
         prefix: 'leftshoot',
         suffix: '.png',
         start: 0,
-        end: 1
+        end: 1,
       }),
 
-      repeat: -1
+      repeat: -1,
     })
 
     this.scene.anims.create({
@@ -105,10 +106,10 @@ export class Player {
         prefix: 'downshoot',
         suffix: '.png',
         start: 0,
-        end: 1
+        end: 1,
       }),
 
-      repeat: -1
+      repeat: -1,
     })
 
     this.scene.anims.create({
@@ -118,10 +119,10 @@ export class Player {
         prefix: 'upshoot',
         suffix: '.png',
         start: 0,
-        end: 1
+        end: 1,
       }),
 
-      repeat: -1
+      repeat: -1,
     })
   }
 
@@ -132,10 +133,10 @@ export class Player {
       frames: this.scene.anims.generateFrameNames(SPRITES.ISAAC, {
         prefix: 'front',
         suffix: '.png',
-        start: 0
+        start: 0,
       }),
 
-      repeat: -1
+      repeat: -1,
     })
 
     this.scene.anims.create({
@@ -145,10 +146,10 @@ export class Player {
         prefix: 'right',
         suffix: '.png',
         start: 0,
-        end: 9
+        end: 9,
       }),
 
-      repeat: -1
+      repeat: -1,
     })
 
     this.scene.anims.create({
@@ -158,10 +159,10 @@ export class Player {
         prefix: 'left',
         suffix: '.png',
         start: 0,
-        end: 9
+        end: 9,
       }),
 
-      repeat: -1
+      repeat: -1,
     })
 
     this.scene.anims.create({
@@ -171,10 +172,10 @@ export class Player {
         prefix: 'front',
         suffix: '.png',
         start: 0,
-        end: 9
+        end: 9,
       }),
 
-      repeat: -1
+      repeat: -1,
     })
 
     this.scene.anims.create({
@@ -184,10 +185,10 @@ export class Player {
         prefix: 'front',
         suffix: '.png',
         start: 0,
-        end: 9
+        end: 9,
       }),
 
-      repeat: -1
+      repeat: -1,
     })
   }
 
@@ -217,7 +218,7 @@ export class Player {
       if (this.scene.game.getTime() > this.tearCooldown) {
         this._head.anims.setTimeScale(this.SHOT_SPEED)
         this.tearSound.play()
-        this.tears.fire(this._head.x, this._head.y, direction, this.SHOT_SPEED * 1000)
+        this.tears.fire(this._head.x, this._head.y, direction, this.SHOT_SPEED * 1000, this.RANGE)
 
         this.tearCooldown = this.scene.game.getTime() + (1 - this.SHOT_SPEED) * 1000
       }
